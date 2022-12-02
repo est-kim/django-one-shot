@@ -18,7 +18,7 @@
                     <th>Name</th>
                     <th>Number of items</th>
                 </tr>
-                {% for item in todo_list %}
+                {% for item in todo_list_list %}
                 <tr>
                     <td>
                         <a href="{% url 'todo_list_detail' item.id %}">{{ item.name }}</a></td>

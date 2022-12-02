@@ -3,10 +3,10 @@ from todos.models import TodoList, TodoItem
 from todos.forms import TodoListForm
 
 # Create your views here.
-def todo_list(request):
+def todo_list_list(request):
     todos = TodoList.objects.all()
     context = {
-        "todo_list": todos,
+        "todo_list_list": todos,
     }
     return render(request, "todos/list.html", context)
 
@@ -32,3 +32,20 @@ def todo_list_create(request):
             "form": form,
         }
     return render(request, "todos/create.html", context)
+
+def todo_list_update(request, id):
+    todo = get_object_or_404(TodoList, id=id)
+    if request.method == "POST":
+        form = TodoListForm(request.POST, instance=todo)
+        if form.is_valid():
+            list = form.save()
+            list.save()
+            return redirect("todo_list_detail", id=list.id)
+    else:
+        form = TodoListForm(instance=todo)
+
+    context = {
+        "todo_object": todo,
+        "form": form,
+    }
+    return render(request, "todos/edit.html", context)

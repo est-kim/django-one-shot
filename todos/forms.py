@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from todos.models import TodoList
+from todos.models import TodoList, TodoItem
 
 class TodoListForm(ModelForm):
     error_css_class = "error-field"

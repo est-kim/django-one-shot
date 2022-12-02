@@ -23,9 +23,9 @@ def todo_list_create(request):
     if request.method == "POST":
         form = TodoListForm(request.POST)
         if form.is_valid():
-            todo = form.save(False)
-            todo.save()
-            return redirect("todo_list_list")
+            list = form.save()
+            list.save()
+            return redirect("todo_list_detail", id=list.id)
     else:
         form = TodoListForm()
         context = {
@@ -49,3 +49,10 @@ def todo_list_update(request, id):
         "form": form,
     }
     return render(request, "todos/edit.html", context)
+
+def todo_list_delete(request, id):
+    todo = TodoList.objects.get(id=id)
+    if request.method == "POST":
+        todo.delete()
+        return redirect("todo_list_list")
+    return render(request, "todos/delete.html")

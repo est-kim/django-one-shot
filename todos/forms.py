@@ -9,3 +9,8 @@ class TodoListForm(ModelForm):
         fields = [
             "name",
         ]
+
+class TodoItemForm(ModelForm):
+    class Meta:
+        model = TodoItem
+        fields = "__all__"
